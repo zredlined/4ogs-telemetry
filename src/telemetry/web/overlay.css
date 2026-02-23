@@ -1,10 +1,13 @@
 :root {
-  --hud-red: #ff3b14;
-  --hud-orange: #ff7a1a;
-  --hud-cyan: #1ee6d5;
-  --hud-bg: #040608;
-  --panel: rgba(7, 10, 12, 0.65);
-  --line: rgba(255, 74, 26, 0.85);
+  --hud-red: #d84dff;
+  --hud-orange: #ff8729;
+  --hud-cyan: #21e7ec;
+  --hud-bg: #04050c;
+  --hud-purple: #8a49ff;
+  --hud-violet: #c249ff;
+  --panel: rgba(7, 10, 18, 0.68);
+  --line: rgba(66, 225, 255, 0.82);
+  --line-2: rgba(199, 82, 255, 0.82);
   --text: #ecf3f7;
 }
 
@@ -19,7 +22,10 @@ body {
   margin: 0;
   font-family: "Rajdhani", "Segoe UI", sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at 20% 15%, #12161c 0%, #08090b 55%, #040506 100%);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(149, 73, 255, 0.2) 0%, rgba(17, 21, 36, 0.45) 30%, rgba(4, 5, 11, 0.95) 78%),
+    radial-gradient(circle at 82% 8%, rgba(42, 205, 255, 0.16) 0%, rgba(4, 6, 11, 0.9) 45%),
+    #04050a;
 }
 
 body {
@@ -32,10 +38,29 @@ body {
   position: relative;
   width: min(100vw, calc(100vh * 16 / 9));
   aspect-ratio: 16 / 9;
-  border: 1px solid rgba(255, 80, 28, 0.7);
-  box-shadow: 0 0 44px rgba(255, 67, 26, 0.25), inset 0 0 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(68, 221, 255, 0.72);
+  box-shadow:
+    0 0 34px rgba(192, 75, 255, 0.22),
+    0 0 44px rgba(45, 223, 255, 0.2),
+    inset 0 0 40px rgba(0, 0, 0, 0.45);
   overflow: hidden;
   background: #000;
+}
+
+#stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(144, 73, 255, 0.09), rgba(24, 220, 255, 0.08)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0 1px,
+      transparent 1px 18px
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
 }
 
 #mainFeed {
@@ -64,12 +89,16 @@ body {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  border: 2px solid rgba(255, 74, 26, 0.85);
-  background: linear-gradient(180deg, rgba(13, 14, 16, 0.9), rgba(4, 6, 8, 0.78));
+  border: 2px solid var(--line);
+  background:
+    linear-gradient(100deg, rgba(124, 73, 255, 0.2), rgba(32, 222, 255, 0.18)),
+    linear-gradient(180deg, rgba(10, 12, 20, 0.92), rgba(5, 7, 12, 0.82));
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.08em;
-  box-shadow: inset 0 -12px 18px rgba(255, 60, 18, 0.12);
+  box-shadow:
+    inset 0 -10px 20px rgba(40, 211, 255, 0.09),
+    0 0 18px rgba(197, 78, 255, 0.15);
 }
 
 #topBanner::before,
@@ -79,20 +108,20 @@ body {
   top: -2px;
   width: 28px;
   height: 16px;
-  border-top: 2px solid rgba(255, 74, 26, 0.85);
+  border-top: 2px solid var(--line);
   pointer-events: none;
 }
 
 #topBanner::before {
   left: -2px;
-  border-left: 2px solid rgba(255, 74, 26, 0.85);
+  border-left: 2px solid var(--line-2);
   transform: skewX(-38deg);
   transform-origin: top left;
 }
 
 #topBanner::after {
   right: -2px;
-  border-right: 2px solid rgba(255, 74, 26, 0.85);
+  border-right: 2px solid var(--line-2);
   transform: skewX(38deg);
   transform-origin: top right;
 }
@@ -100,7 +129,7 @@ body {
 #topBanner .brand {
   font-size: clamp(9px, 1.02vw, 15px);
   padding-inline: 0.9rem;
-  color: #e5edf3;
+  color: #cfe9f5;
   opacity: 0.9;
   white-space: nowrap;
   overflow: hidden;
@@ -118,20 +147,25 @@ body {
 #topBanner .title {
   font-family: "Orbitron", sans-serif;
   font-size: clamp(12px, 1.5vw, 23px);
-  color: var(--hud-orange);
-  border: 2px solid var(--hud-red);
+  color: #e2fbff;
+  border: 2px solid var(--hud-violet);
   border-radius: 9px;
   padding: 0.32rem 1.5rem;
-  box-shadow: 0 0 16px rgba(255, 80, 24, 0.35);
-  background: linear-gradient(180deg, rgba(37, 6, 2, 0.75), rgba(12, 4, 2, 0.58));
+  box-shadow: 0 0 16px rgba(138, 73, 255, 0.32);
+  background: linear-gradient(180deg, rgba(36, 13, 56, 0.84), rgba(7, 13, 26, 0.72));
 }
 
 .card {
   position: absolute;
   backdrop-filter: blur(4px);
-  background: var(--panel);
+  background:
+    linear-gradient(150deg, rgba(132, 73, 255, 0.06), rgba(37, 220, 255, 0.05)),
+    var(--panel);
   border: 2px solid var(--line);
-  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.34), 0 0 24px rgba(255, 53, 17, 0.18);
+  box-shadow:
+    inset 0 0 26px rgba(0, 0, 0, 0.34),
+    0 0 20px rgba(45, 212, 255, 0.14),
+    0 0 20px rgba(180, 72, 255, 0.12);
 }
 
 .card h3 {
@@ -140,7 +174,7 @@ body {
   font-family: "Orbitron", sans-serif;
   font-size: clamp(10px, 1vw, 15px);
   letter-spacing: 0.08em;
-  color: var(--hud-orange);
+  color: #63f0ff;
 }
 
 #trackCard {
@@ -158,16 +192,16 @@ body {
 
 #trackPath {
   fill: none;
-  stroke: #ffbf2a;
+  stroke: #34e7ff;
   stroke-width: 7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 7px rgba(255, 190, 45, 0.42));
+  filter: drop-shadow(0 0 8px rgba(40, 225, 255, 0.45));
 }
 
 #trackDot {
-  fill: var(--hud-cyan);
-  filter: drop-shadow(0 0 8px rgba(30, 230, 213, 0.65));
+  fill: #d357ff;
+  filter: drop-shadow(0 0 8px rgba(208, 88, 255, 0.65));
 }
 
 #insetCard {
@@ -206,10 +240,10 @@ body {
   background:
     repeating-linear-gradient(
       180deg,
-      rgba(255, 120, 40, 0.92) 0 12px,
-      rgba(255, 52, 20, 0.82) 12px 24px
+      rgba(45, 224, 255, 0.92) 0 12px,
+      rgba(185, 76, 255, 0.82) 12px 24px
     );
-  box-shadow: 0 0 10px rgba(255, 72, 25, 0.5);
+  box-shadow: 0 0 10px rgba(120, 80, 255, 0.46);
   pointer-events: none;
   z-index: 0;
 }
@@ -226,8 +260,8 @@ body {
   left: 0;
   width: 30px;
   height: 28px;
-  border-top: 2px solid rgba(255, 98, 40, 0.95);
-  border-left: 2px solid rgba(255, 98, 40, 0.95);
+  border-top: 2px solid var(--line);
+  border-left: 2px solid var(--line-2);
   transform: skewX(-36deg);
   transform-origin: top left;
   pointer-events: none;
@@ -243,7 +277,7 @@ body {
 .label {
   display: inline-block;
   font-family: "Orbitron", sans-serif;
-  color: var(--hud-orange);
+  color: #67efff;
   font-size: clamp(9px, 0.84vw, 13px);
   letter-spacing: 0.08em;
 }
@@ -253,8 +287,8 @@ body {
 .lapBlock,
 .gearBlock,
 .rpmBlock {
-  border: 1px solid rgba(255, 99, 42, 0.7);
-  background: linear-gradient(180deg, rgba(7, 9, 11, 0.7), rgba(6, 7, 8, 0.45));
+  border: 1px solid rgba(55, 213, 255, 0.62);
+  background: linear-gradient(180deg, rgba(8, 10, 16, 0.78), rgba(6, 8, 13, 0.52));
   padding: 0.22rem 0.34rem;
   min-height: 0;
 }
@@ -296,22 +330,22 @@ body {
 
 .lapProgress {
   height: 7px;
-  border: 1px solid rgba(255, 102, 38, 0.72);
+  border: 1px solid rgba(78, 206, 255, 0.68);
   background: rgba(7, 9, 12, 0.78);
 }
 
 .lapProgress > div {
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, #1de8d6, #ff7d26);
+  background: linear-gradient(90deg, #1ce9d8, #c655ff);
 }
 
 .delta.plus {
-  color: #ff6b52;
+  color: #ff8b6b;
 }
 
 .delta.minus {
-  color: #52ffc9;
+  color: #66f7ff;
 }
 
 .telemetryBottom {
@@ -333,8 +367,8 @@ body {
   font-family: "Orbitron", sans-serif;
   font-size: clamp(26px, 3.5vw, 46px);
   line-height: 0.88;
-  color: #43f3df;
-  text-shadow: 0 0 10px rgba(24, 231, 214, 0.35);
+  color: #79f4ff;
+  text-shadow: 0 0 10px rgba(54, 222, 255, 0.34);
 }
 
 .pedalColumn {
@@ -347,9 +381,9 @@ body {
   grid-template-rows: 1fr 1fr;
   gap: 0.14rem;
   padding: 0.14rem;
-  border: 1px solid rgba(255, 102, 42, 0.88);
-  background: linear-gradient(180deg, rgba(8, 9, 12, 0.9), rgba(4, 6, 8, 0.75));
-  box-shadow: inset 0 0 12px rgba(255, 86, 29, 0.15);
+  border: 1px solid rgba(86, 213, 255, 0.85);
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.9), rgba(7, 9, 16, 0.78));
+  box-shadow: inset 0 0 12px rgba(165, 76, 255, 0.18);
 }
 
 .rpmHeader {
@@ -367,7 +401,7 @@ body {
   gap: 2px;
   height: 24px;
   padding: 2px 3px 2px 2px;
-  border: 1px solid rgba(255, 110, 48, 0.58);
+  border: 1px solid rgba(62, 206, 255, 0.58);
   background: linear-gradient(180deg, rgba(8, 9, 11, 0.9), rgba(4, 5, 6, 0.8));
 }
 
@@ -397,7 +431,7 @@ body {
   margin-top: 0.1rem;
   display: flex;
   justify-content: space-between;
-  color: #f5b082;
+  color: #9ce9f8;
   font-size: clamp(8px, 0.66vw, 10px);
 }
 
@@ -416,7 +450,7 @@ body {
 
 .bar {
   height: 8px;
-  border: 1px solid rgba(255, 94, 35, 0.78);
+  border: 1px solid rgba(80, 201, 255, 0.74);
   background: rgba(8, 10, 12, 0.62);
   overflow: hidden;
 }
@@ -440,15 +474,15 @@ body {
   justify-items: center;
   gap: 0.06rem;
   padding: 0.08rem 0.06rem;
-  border: 1px solid rgba(255, 98, 41, 0.6);
-  background: linear-gradient(180deg, rgba(8, 9, 11, 0.85), rgba(4, 5, 7, 0.65));
+  border: 1px solid rgba(88, 203, 255, 0.58);
+  background: linear-gradient(180deg, rgba(10, 12, 18, 0.86), rgba(6, 8, 12, 0.72));
 }
 
 .pedal.vertical .bar {
   width: 100%;
   height: 100%;
   min-height: 22px;
-  border: 1px solid rgba(255, 94, 35, 0.78);
+  border: 1px solid rgba(80, 201, 255, 0.68);
 }
 
 .pedal.vertical .bar > div {
@@ -460,6 +494,7 @@ body {
 .pedal.vertical > span {
   font-size: clamp(8px, 0.65vw, 10px);
   font-family: "Orbitron", sans-serif;
+  color: #73edff;
 }
 
 #gMeter {
@@ -487,7 +522,7 @@ body {
 .sysGrid b {
   float: right;
   font-family: "Orbitron", sans-serif;
-  color: #65ffe0;
+  color: #73f4ff;
 }
 
 .sourceLine {
@@ -497,14 +532,16 @@ body {
 }
 
 .sourceLine span {
-  color: var(--hud-orange);
+  color: #79ecff;
 }
 
 #frameGlow {
   position: absolute;
   inset: 0;
-  border: 2px solid rgba(255, 79, 27, 0.48);
-  box-shadow: inset 0 0 70px rgba(255, 76, 23, 0.18);
+  border: 2px solid rgba(66, 218, 255, 0.38);
+  box-shadow:
+    inset 0 0 70px rgba(42, 205, 255, 0.14),
+    inset 0 0 65px rgba(182, 76, 255, 0.12);
   pointer-events: none;
 }
 
