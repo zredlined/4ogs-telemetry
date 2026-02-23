@@ -45,6 +45,16 @@ body {
   height: 100%;
 }
 
+#cameraSource {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0.001;
+  pointer-events: none;
+  left: -100px;
+  top: -100px;
+}
+
 #topBanner {
   position: absolute;
   top: 1%;
