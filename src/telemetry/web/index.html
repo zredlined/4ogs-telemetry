@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4OGS Race Overlay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/overlay.css">
+</head>
+<body>
+  <div id="stage">
+    <canvas id="mainFeed" aria-label="Main camera feed"></canvas>
+    <img id="cameraSource" alt="" hidden>
+
+    <header id="topBanner">
+      <div class="brand left">FALKEN</div>
+      <div class="title">STANCEWORKS STYLE HUD</div>
+      <div class="brand right">GYEON</div>
+    </header>
+
+    <section id="trackCard" class="card">
+      <h3>TRACK</h3>
+      <svg id="trackMap" viewBox="0 0 240 220" role="img" aria-label="Track map">
+        <path id="trackPath" d="M24,32 C34,12 74,16 90,34 C108,56 94,76 74,88 C52,102 62,124 84,138 C108,152 120,176 104,192 C84,210 38,198 30,168 C24,142 40,118 54,106 C74,88 80,66 66,50 C52,36 34,42 24,62" />
+        <circle id="trackDot" cx="24" cy="32" r="6"></circle>
+      </svg>
+    </section>
+
+    <section id="insetCard" class="card">
+      <h3>IN-CAR FEED 2</h3>
+      <canvas id="insetFeed" aria-label="Inset camera feed"></canvas>
+    </section>
+
+    <section id="telemetryCard" class="card">
+      <div class="telemetryTop">
+        <div class="speedBlock">
+          <span class="label">MPH</span>
+          <span class="speed" id="speedValue">000</span>
+        </div>
+        <div class="gBlock">
+          <span class="label">G</span>
+          <canvas id="gMeter" width="170" height="170"></canvas>
+        </div>
+        <div class="lapBlock">
+          <span class="label">ACTIVE LAP</span>
+          <span class="lapTime" id="lapTimeValue">00:00.000</span>
+          <div class="smallRow">
+            <span>BEST <b id="bestLapValue">00:00.000</b></span>
+            <span>LAST <b id="lastLapValue">00:00.000</b></span>
+          </div>
+          <div class="smallRow">
+            <span>LAP <b id="lapNumberValue">1</b></span>
+            <span id="deltaValue" class="delta minus">-0.000</span>
+          </div>
+        </div>
+      </div>
+      <div class="telemetryBottom">
+        <div class="gearBlock">
+          <span class="label">GEAR</span>
+          <span class="gear" id="gearValue">N</span>
+        </div>
+        <div class="rpmBlock">
+          <div class="rpmHeader">
+            <span>RPM x1000</span>
+            <span id="rpmNumeric">0.0</span>
+          </div>
+          <div id="rpmBars"></div>
+          <div class="scale">
+            <span>0</span>
+            <span>2</span>
+            <span>4</span>
+            <span>6</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </div>
+      </div>
+      <div class="pedalRows">
+        <div class="pedal">
+          <span>THR</span>
+          <div class="bar"><div id="throttleBar"></div></div>
+        </div>
+        <div class="pedal">
+          <span>BRK</span>
+          <div class="bar"><div id="brakeBar"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="systemCard" class="card">
+      <h3>PLATFORM</h3>
+      <div class="sysGrid">
+        <div>CPU <b id="cpuValue">--</b></div>
+        <div>GPU <b id="gpuValue">--</b></div>
+        <div>TEMP <b id="tempValue">--</b></div>
+        <div>MEM <b id="memValue">--</b></div>
+      </div>
+      <div class="sourceLine">SOURCE <span id="sourceValue">--</span></div>
+      <div class="sourceLine">LINK <span id="statusValue">connecting</span></div>
+    </section>
+
+    <div id="frameGlow"></div>
+  </div>
+  <script type="module" src="/overlay.js"></script>
+</body>
+</html>

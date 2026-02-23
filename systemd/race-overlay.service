@@ -1,0 +1,16 @@
+[Unit]
+Description=4OGS Race Overlay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=orin
+WorkingDirectory=/home/orin/4ogs-telemetry
+Environment=PATH=/home/orin/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/home/orin/.local/bin/uv run race-overlay --source webcam --camera-device /dev/video0 --port 8080 --camera-port 8090
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
