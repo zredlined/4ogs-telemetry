@@ -1,6 +1,7 @@
 const state = {
   connected: false,
   source: "unknown",
+  cameraConnected: false,
   latest: null,
   smooth: {
     speed: 0,
@@ -227,6 +228,21 @@ function connectTelemetry(url) {
   };
 }
 
+function attachCamera(url) {
+  const reconnect = () => {
+    state.cameraConnected = false;
+    setTimeout(() => {
+      dom.sourceImg.src = `${url}?t=${Date.now()}`;
+    }, 600);
+  };
+
+  dom.sourceImg.onload = () => {
+    state.cameraConnected = true;
+  };
+  dom.sourceImg.onerror = reconnect;
+  dom.sourceImg.src = `${url}?t=${Date.now()}`;
+}
+
 async function init() {
   setupRpmBars();
   resizeAll();
@@ -237,7 +253,7 @@ async function init() {
   state.source = config.source || "unknown";
   dom.source.textContent = `${state.source.toUpperCase()} @ ${config.target_fps}FPS`;
 
-  dom.sourceImg.src = `${config.camera_url}?t=${Date.now()}`;
+  attachCamera(config.camera_url);
   connectTelemetry(config.telemetry_url);
   requestAnimationFrame(renderFrame);
 }

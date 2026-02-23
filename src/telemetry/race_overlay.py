@@ -449,10 +449,9 @@ class OverlayApp:
         req = Request(upstream, headers={"Connection": "close"})
         try:
             with urlopen(req, timeout=8) as response:
-                ctype = response.headers.get(
-                    "Content-Type",
-                    "multipart/x-mixed-replace; boundary=ffmpeg",
-                )
+                ctype = response.headers.get("Content-Type", "")
+                if "multipart/x-mixed-replace" not in ctype.lower():
+                    ctype = "multipart/x-mixed-replace; boundary=ffmpeg"
                 handler.send_response(200)
                 handler.send_header("Content-Type", ctype)
                 handler.send_header("Cache-Control", "no-cache")
@@ -464,6 +463,8 @@ class OverlayApp:
                         break
                     handler.wfile.write(chunk)
                     handler.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError):
+            return
         except (OSError, URLError):
             handler.send_error(503, "Camera stream unavailable")
 
