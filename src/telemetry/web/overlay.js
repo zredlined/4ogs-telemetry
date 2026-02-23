@@ -184,8 +184,8 @@ function renderHud() {
     node.classList.toggle("active", i < activeBars);
   });
 
-  dom.throttleBar.style.width = `${Math.round(state.smooth.throttle * 100)}%`;
-  dom.brakeBar.style.width = `${Math.round(state.smooth.brake * 100)}%`;
+  dom.throttleBar.style.height = `${Math.round(state.smooth.throttle * 100)}%`;
+  dom.brakeBar.style.height = `${Math.round(state.smooth.brake * 100)}%`;
 
   const track = t.track || {};
   const x = 24 + clamp(track.x || 0, 0, 1) * 192;
