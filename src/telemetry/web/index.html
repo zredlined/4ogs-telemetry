@@ -38,6 +38,10 @@
         <div class="speedBlock">
           <span class="label">MPH</span>
           <span class="speed" id="speedValue">000</span>
+          <div class="smallRow speedRow">
+            <span>KMH <b id="speedKmhValue">000</b></span>
+            <span>MAX <b id="speedMaxValue">000</b></span>
+          </div>
         </div>
         <div class="gBlock">
           <span class="label">G</span>
@@ -54,6 +58,7 @@
             <span>LAP <b id="lapNumberValue">1</b></span>
             <span id="deltaValue" class="delta minus">-0.000</span>
           </div>
+          <div class="lapProgress"><div id="lapProgressBar"></div></div>
         </div>
       </div>
       <div class="telemetryBottom">
@@ -62,13 +67,15 @@
           <span class="gear" id="gearValue">N</span>
         </div>
         <div class="pedalColumn">
-          <div class="pedal vertical">
-            <span>THR</span>
-            <div class="bar"><div id="throttleBar"></div></div>
-          </div>
-          <div class="pedal vertical">
-            <span>BRK</span>
-            <div class="bar"><div id="brakeBar"></div></div>
+          <div class="pedalBox">
+            <div class="pedal vertical">
+              <span>T</span>
+              <div class="bar"><div id="throttleBar"></div></div>
+            </div>
+            <div class="pedal vertical">
+              <span>B</span>
+              <div class="bar"><div id="brakeBar"></div></div>
+            </div>
           </div>
         </div>
         <div class="rpmBlock">

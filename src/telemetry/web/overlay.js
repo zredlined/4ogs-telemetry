@@ -12,6 +12,7 @@ const state = {
     brake: 0,
   },
   fps: 0,
+  maxSpeed: 0,
   frameCount: 0,
   lastFpsTs: performance.now(),
 };
@@ -21,6 +22,8 @@ const dom = {
   mainFeed: document.getElementById("mainFeed"),
   insetFeed: document.getElementById("insetFeed"),
   speed: document.getElementById("speedValue"),
+  speedKmh: document.getElementById("speedKmhValue"),
+  speedMax: document.getElementById("speedMaxValue"),
   rpmNumeric: document.getElementById("rpmNumeric"),
   gear: document.getElementById("gearValue"),
   lapTime: document.getElementById("lapTimeValue"),
@@ -28,6 +31,7 @@ const dom = {
   lastLap: document.getElementById("lastLapValue"),
   lapNumber: document.getElementById("lapNumberValue"),
   delta: document.getElementById("deltaValue"),
+  lapProgress: document.getElementById("lapProgressBar"),
   throttleBar: document.getElementById("throttleBar"),
   brakeBar: document.getElementById("brakeBar"),
   trackDot: document.getElementById("trackDot"),
@@ -165,6 +169,9 @@ function renderHud() {
   state.smooth.brake = lerp(state.smooth.brake, t.brake || 0, 0.24);
 
   dom.speed.textContent = Math.round(state.smooth.speed).toString().padStart(3, "0");
+  state.maxSpeed = Math.max(state.maxSpeed, state.smooth.speed);
+  dom.speedKmh.textContent = Math.round(state.smooth.speed * 1.60934).toString().padStart(3, "0");
+  dom.speedMax.textContent = Math.round(state.maxSpeed).toString().padStart(3, "0");
   dom.rpmNumeric.textContent = (state.smooth.rpm / 1000).toFixed(1);
   dom.gear.textContent = t.gear || "N";
 
@@ -177,6 +184,7 @@ function renderHud() {
   dom.delta.textContent = `${delta >= 0 ? "+" : ""}${delta.toFixed(3)}`;
   dom.delta.classList.toggle("plus", delta >= 0);
   dom.delta.classList.toggle("minus", delta < 0);
+  dom.lapProgress.style.width = `${Math.round(clamp(lap.progress || 0, 0, 1) * 100)}%`;
 
   const rpmRatio = clamp(state.smooth.rpm / 9000, 0, 1);
   const activeBars = Math.round(rpmRatio * 30);
@@ -184,8 +192,10 @@ function renderHud() {
     node.classList.toggle("active", i < activeBars);
   });
 
-  dom.throttleBar.style.height = `${Math.round(state.smooth.throttle * 100)}%`;
-  dom.brakeBar.style.height = `${Math.round(state.smooth.brake * 100)}%`;
+  const thrPct = Math.round(clamp(state.smooth.throttle, 0, 1) * 100);
+  const brkPct = Math.round(clamp(state.smooth.brake, 0, 1) * 100);
+  dom.throttleBar.style.height = `${thrPct > 0 ? Math.max(4, thrPct) : 0}%`;
+  dom.brakeBar.style.height = `${brkPct > 0 ? Math.max(4, brkPct) : 0}%`;
 
   const track = t.track || {};
   const x = 24 + clamp(track.x || 0, 0, 1) * 192;
